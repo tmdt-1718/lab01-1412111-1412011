@@ -3,21 +3,104 @@
   <head>
     <title>Webapp</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <section class="content" style="min-height: auto;">
-      <% flash.each do |key, value| %>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+    <img src="/assets/logo.png" width="50" height="50" alt="">
+       
+      </a>
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#collapsableContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsableContent">
+        <ul class="nav nav-tabs">
+          <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="/articles" class="nav-link">Blog</a></li>
+          <li class="nav-item"><a href="/photos" class="nav-link">Album</a></li>
+          <li class="nav-item"><a href="/info" class="nav-link">About</a></li>
+          
+          
+          <% if current_user %>
+          <li class="nav-item">
+            <a class="nav-link">
+              <%= current_user.name %>  
+            </a>
+          </li>
+          <li class="nav-item">
+
+            <%= link_to "Logout", logout_path, method: :delete, class: "nav-link" %>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", login_path, class: "nav-link" %>
+          </li>
+          <% end %>
+          
+        </ul>
+      </div>
+    </nav>
+      <div class="container">
         <div class="row">
-          <div class="alert alert-<%= key %>">
-            <%= value %>
+          <div class="col-md-3">
+
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-expanded="true">Menu1</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-expanded="true">Menu2</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-expanded="true">Menu3</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-expanded="true">Menu4</a>
+          </div>
+
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"></div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"></div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab"></div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab"></div>
           </div>
         </div>
-      <% end %>
-    </section>
-    <%= yield %>
+        <div class="col-md-9">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  <%= yield :js %>
+
   </body>
+  <footer class="footer-distributed ">
+        <div class="footer-left ">
+            <h3>Connecting people</h3>
+            <div>
+                <p class="footer-company-name ">Codev &copy; 2017</p>
+            </div>
+        </div>
+        <div class="footer-center ">
+            <div>
+                <i class="fa fa-map-marker "></i>
+                <p><span>Ho Chi Minh City </span> De Tham Street</p>
+            </div>
+            <div>
+                <i class="fa fa-phone "></i>
+                <p>01632 511 676</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope "></i>
+                <p><a href="mailto:nguyenvietduongus@gmail.com ">nguyenvietduongus@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right ">
+            <p class="footer-company-about ">
+                <span>About Team</span>
+                There are two student in this team, we're handsome and slogan that's nothing impossible
+            </p>
+        </div>
+    </footer>
 </html>
+<script>
+  $('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>

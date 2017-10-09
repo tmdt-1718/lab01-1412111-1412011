@@ -1,28 +1,20 @@
 class UsersController < ApplicationController
-	def index
-  end
-
   def new
-   	 @user = User.new
- 	end
-
-  def show
-    @user = User.find_by id: params[:id]
   end
 
   def create
-    	@user = User.new user_params
-    	if @user.save
-      	flash[:success] = "Register success"
-      	redirect_to login_path
-    	else
-      	flash[:error] = "Register failed"
-      	render :new
-    	end
+  	begin
+  		user = User.create!(user_params)
+  		flash[:success] = "Register successfully."
+  		redirect_to login_path	
+  	rescue ActiveRecord::RecordInvalid => e
+  		flash[:error] = "Cannot register new account."
+  		render :new
+  	end
   end
 
   private
   def user_params
-    	params.require(:user).permit :name, :password, :password_confirmation
+  	params.require(:user).permit(:name, :email, :password)
   end
 end

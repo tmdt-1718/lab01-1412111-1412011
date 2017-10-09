@@ -1,7 +1,7 @@
-from ruby
-run apt-get update -y
-run apt-get install -y nodejs
-run gem install rails
-run mkdir webapp
-workdir /webapp
-cmd rails new . --database=postgresql
+FROM ruby
+RUN apt-get update
+RUN apt-get install -y nodejs redis-tools
+RUN gem install rails gemrat
+RUN mkdir /webapp
+ADD . /webapp
+WORKDIR webapp
