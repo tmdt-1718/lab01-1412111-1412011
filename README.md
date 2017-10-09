@@ -11,6 +11,7 @@ In this repository, I create a simple rails and docker setup. Feel free to custo
 ## Installation
 - Clone the repository.
 - Run `docker-compose up`
+- Gif https://drive.google.com/file/d/0B2esqTjz-DoLOFRpVHhoUVNJTmM/view
 - Access your application with the URL: http://localhost:3000
 
 ## Configuration
